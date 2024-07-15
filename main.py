@@ -42,7 +42,7 @@ def get_user(id):
 def load_user(user_id):
     # Пример пользователей
     users = {
-        '1': {'name': 'Alice'},
+        '1': {'name': 'Dima'},
         '2': {'name': 'Bob'},
         '3': {'name': 'Charlie'}
     }
