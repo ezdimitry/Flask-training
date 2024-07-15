@@ -29,12 +29,11 @@ def first_app():
 
 @app.route("/contact", methods=["POST", "GET"])
 def contact():
-    if len(request.form['username']) > 2:
-        flash('Сообщение отправлено')
-    else:
-        flash('Ошибка отправки')
     if request.method == "POST":
-        print(request.form)
+        if len(request.form['username']) > 2:
+            flash('Сообщение отправлено')
+        else:
+            flash('Ошибка отправки')
     return render_template('contact.html', title='Обратная связь', menu=menu)
 
 
