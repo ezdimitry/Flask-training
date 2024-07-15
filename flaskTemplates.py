@@ -2,6 +2,10 @@ from flask import Flask, render_template, request, flash
 
 app = Flask(__name__)
 
+
+app.config['SECRET_KEY'] = 'fdgszrgr485734578hsHEfjfbjze'
+
+
 menu = [{"name": "Установка", "url": "/install-flask"},
         {"name": "Первое приложение", "url": "/first-app"},
         {"name": "Обратная связь", "url": "/contact"}]
