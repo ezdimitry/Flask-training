@@ -1,42 +1,41 @@
-'''
-Использование шаблонов, шаблонов с параметрами, extend
-Функция url_for и url адреса
-'''
-
-
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, request, flash
 
 app = Flask(__name__)
 
-menu = ["Установка", "Загрузка", "Поддержка"]
+menu = [{"name": "Установка", "url": "/install-flask"},
+        {"name": "Первое приложение", "url": "/first-app"},
+        {"name": "Обратная связь", "url": "/contact"}]
 
 
 @app.route("/")
 def index():
-    print(url_for('index'))
-    return render_template("index.html", title="О сайте", menu=menu)
+    return render_template('index.html', menu=menu)
 
 
 @app.route("/about")
 def about():
-    print(url_for('about'))
-    return render_template("about.html", menu=menu)
+    return render_template('about.html', title='О сайте', menu=menu)
 
 
-@app.route("/base")
-def base():
-    return render_template("base.html")
+@app.route("/install-flask")
+def install_flask():
+    return render_template('install.html', title='Установка Flask', menu=menu)
 
 
-# использование extend через html файл
-@app.route("/exp")
-def exp():
-    return render_template("exp.html")
+@app.route("/first-app")
+def first_app():
+    return render_template('first_app.html', title='Первое приложение', menu=menu)
 
 
-@app.route("/profile/<path:username>")
-def profile(username):
-    return f"Пользователь: {username}"
+@app.route("/contact", methods=["POST", "GET"])
+def contact():
+    if len(request.form['username']) > 2:
+        flash('Сообщение отправлено')
+    else:
+        flash('Ошибка отправки')
+    if request.method == "POST":
+        print(request.form)
+    return render_template('contact.html', title='Обратная связь', menu=menu)
 
 
 if __name__ == '__main__':
